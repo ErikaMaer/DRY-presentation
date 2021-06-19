@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>DRY</title>
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/black.css">
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<p class="main-title">Don’t repeat yourself</p>
+			<img src="dist/assets/main.png" width="540" height="341" alt="Main">
+			<hr>
+			<p>Speaker: Erika Maer</p>
+		</section>
+		<section>
+			<section>
+				<h2>Authors</h2>
+				<p class="author-info">The principle has been formulated by Andy
+					Hunt and Dave Thomas in their book The Pragmatic Programmer.</p>
+				<div class="authors-images">
+					<article class="author">
+						<img src="dist/assets/hunt.jpg" alt="Hunt">
+						<p class="author-name">Andy Hunt</p>
+					</article>
+					<div class="authors-images">
+						<article class="author">
+							<img src="dist/assets/thomas.jpg" alt="Thomas">
+							<p class="author-name">Dave Thomas</p>
+						</article>
+					</div>
+				</div>
+			</section>
+		</section>
+		<section>
+			<section>
+				<h2>DRY & SPR</h2>
+				<img src="dist/assets/dry-srp.jpg" height="500" alt="dry-srp">
+			</section>
+			<section>
+				<blockquote>&ldquo;A class should have only one reason to change&rdquo;</blockquote>
+				<img src="dist/assets/martin.png" height="400" alt="Martin">
+			</section>
+		</section>
+		<section>
+			<h2>SSOT - <span class="ssot-title">single source of truth</span></h2>
+			<div class="ssot-info">
+				<img src="dist/assets/ssot.png" height="400" alt="ssot">
+				<p>In information systems design and theory, SSOT is the practice
+					of structuring information models and associated data schema such
+					that every data element is mastered (or edited) in only one place.</p>
+			</div>
+		</section>
+		<section>
+			<section>
+				<h2>Modular architecture</h2>
+				<img src="dist/assets/module.png" height="440" alt="module">
+			</section>
+			<section>
+				<ul class="architecture-rules">
+					<li>Draw a graphical diagram of your system, divide it into visual
+						components. Complex projects may require such a hierarchy per component.
+					</li>
+				</ul>
+				<img src="dist/assets/examples/diagram.png" height="500" alt="diagram">
+			</section>
+			<section>
+				<ul class="architecture-rules">
+					<li>Before writing the code, mark it in your graphical diagram, determine its
+						role among other components of the system.
+					</li>
+				</ul>
+				<img src="dist/assets/examples/component.png" height="500" alt="diagram">
+			</section>
+			<section>
+				<ul class="architecture-rules">
+					<li> Be clear about the views that your code will give out to other parts
+						of the system, and which it should hide (private / public).
+					</li>
+				</ul>
+				<img src="dist/assets/examples/private-public.jpg" height="500" alt="diagram">
+			</section>
+			<section>
+				<ul class="architecture-rules">
+					<li>Make sure your code is loosely coupled to other views of the system
+						- being tightly coupled is very bad for the overall architecture.
+					</li>
+				</ul>
+				<img src="dist/assets/examples/component-connection.PNG" height="500" alt="diagram">
+			</section>
+		</section>
+		<section>
+			<h2>When the principle doesn't work</h2>
+			<img src="dist/assets/examples/realtime-validation.gif" alt="validation">
+		</section>
+		<section>
+			<h2>DRY & WET</h2>
+			<div class="ssot-info">
+				<p>Write Everything Twice (WET) is a cheeky abbreviation to mean
+					the opposite i.e. code that doesn’t adhere to DRY principle.</p>
+				<img src="dist/assets/dry-wet.jpg" alt="wet">
+			</div>
+		</section>
+		<section class="abuse">
+			<h2>Abuse of the principle</h2>
+			<p>The implicit drawback is that if you are DRY-aware, you might
+				accidentally combine similar logic rather than duplicating the implementation.</p>
+			<img src="dist/assets/duplicate.jpg" height="300" alt="duplicate">
+		</section>
+		<section>
+			<section class="examples">
+				<h2>Examples</h2>
+				<p>Selector grouping</p>
+				<div class="example">
+					<article class="bad-example">
+						<p>Bad practice</p>
+						<pre data-id="code-animation">
+              <code class="selectors" data-trim data-line-numbers>
+                h1 {
+                    color: #94b5ff;
+                    font-size: 20px;
+                }
+                p {
+                    color: #94b5ff;
+                    font-size: 20px;
+                }
+                .title {
+                    color: #94b5ff;
+                    font-size: 20px;
+                }
+                h4 {
+                    color: #94b5ff;
+                    font-size: 20px;
+                }
+					</code>
+            </pre>
+					</article>
+					<article class="good-example">
+						<p>Good practice</p>
+						<pre data-id="code-animation">
+              <code class="selectors" data-trim data-line-numbers>
+                    h1, p, .title, h4 {
+                        color: #94b5ff;
+                        font-size: 20px;
+                    }
+			  </code>
+            </pre>
+					</article>
+				</div>
+			</section>
+			<section class="examples">
+				<p>Repeating style groups into classes</p>
+				<div class="example">
+					<article class="bad-example">
+						<p>Bad practice</p>
+						<pre data-id="code-animation">
+              <code class="selectors" data-trim data-line-numbers>
+                  <ul>
+                    <li class="menu-item-1">About</li>
+                    <li class="menu-item-2">Map</li>
+                    <li class="menu-item-3">Donate</li>
+                    <li class="menu-item-4">Zoos</li>
+                  </ul>
+              </code>
+            </pre>
+						<pre data-id="code-animation">
+              <code class="selectors" data-trim data-line-numbers>
+              .menu-item-1 {
+                  font-size: 24px;
+                  text-align: center;
+              }
+              .menu-item-2 {
+                  font-size: 24px;
+                  text-align: center;
+              }
+              .menu-item-3 {
+                  font-size: 24px;
+                  text-align: center;
+              }
+              .menu-item-4 {
+                  font-size: 24px;
+                  text-align: center;
+              }
+              </code>
+            </pre>
+					</article>
+					<article class="good-example">
+						<p>Good practice</p>
+						<pre data-id="code-animation">
+              <code class="selectors" data-trim data-line-numbers>
+                <ul>
+                  <li class="menu-item">About</li>
+                  <li class="menu-item">Map</li>
+                  <li class="menu-item">Donate</li>
+                  <li class="menu-item">Zoos</li>
+                </ul>
+              </code>
+            </pre>
+						<pre data-id="code-animation">
+              <code class="selectors" data-trim data-line-numbers>
+              .menu-item {
+                  font-size: 24px;
+                  text-align: center;
+              }
+              </code>
+            </pre>
+					</article>
+				</div>
+			</section>
+			<section class="examples">
+				<p>Cycles</p>
+				<div class="example">
+					<article class="bad-example">
+						<p>Bad practice</p>
+						<pre data-id="code-animation">
+              <code class="selectors" data-trim data-line-numbers>
+              array[0].toUpperCase();
+              array[1].toUpperCase();
+              array[2].toUpperCase();
+              array[3].toUpperCase();
+              </code>
+            </pre>
+					</article>
+					<article class="good-example">
+						<p>Good practice</p>
+						<pre data-id="code-animation">
+              <code class="selectors" data-trim data-line-numbers>
+              for (let i = 0; i < array.length; i++) {
+                  array[i].toUpperCase();
+              }
+              </code>
+            </pre>
+					</article>
+				</div>
+			</section>
+			<section class="examples">
+				<p>Functions</p>
+				<div class="example">
+					<article class="bad-example">
+						<p>Bad practice</p>
+						<pre data-id="code-animation">
+              <code class="selectors selectors-functions" data-trim data-line-numbers>
+              const time = new Date();
+              const hour = time.getHours()
+
+              if (hour > 6 && hour < 11) {
+                  console.log('Good', 'morning!', 'Now:', hour, 'hours');
+              } else {
+                  console.log('Good', 'evening!', 'Now:', hour, 'hours');
+              }
+              </code>
+            </pre>
+					</article>
+					<article class="good-example">
+						<p>Good practice</p>
+						<pre data-id="code-animation">
+              <code class="selectors selectors-functions" data-trim data-line-numbers>
+                const time = new Date();
+                const hour = time.getHours()
+
+                if (hour > 6 && hour < 11) {
+                    greeting('morning!');
+                } else {
+                    greeting('evening!');
+                }
+
+                function greeting(dayTime) {
+                    console.log('Good', dayTime, 'Now:', hour, 'hours');
+                }
+              </code>
+            </pre>
+					</article>
+				</div>
+			</section>
+		</section>
+		<section>
+			<h2>Don’t repeat yourself</h2>
+			<img src="dist/assets/dry-ending.jpg" alt="dry-ending">
+		</section>
+	</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+	Reveal.initialize({
+		hash: true,
+		plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+	});
+</script>
+</body>
+</html>
